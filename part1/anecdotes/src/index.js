@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 // import './index.css';
@@ -16,25 +16,58 @@ const anecdotes = [
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [mostVoteSelected, setMostVoteSelected] = useState(0)
+  // const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [votes, setVotes] = useState(new Array(anecdotes.length+1).join('0').split('').map(parseFloat))
+
+
 
   const handleClick = () => {
     const random = Math.floor(Math.random() * Math.floor(anecdotes.length))
     setSelected(random)
+    // maxVoteSelected()
   }
 
   const handleVoteClick = () => {
     const copy = [...votes]
+    console.log('before votes', copy)
     copy[selected] += 1
+    console.log('after votes', copy)
     setVotes(copy)
+    console.log('now votes', votes)
+    // setTimeout(maxVoteSelected, 5000)
+    // maxVoteSelected()
+  }
+
+  useEffect(() => {
+    // document.title = `You clicked ${count} times`;
+    maxVoteSelected()
+  });
+
+  const maxVoteSelected = () => {
+    let max = -1
+    let maxIndex = 0
+    const copy = [...votes]
+    console.log(votes)
+    copy.forEach((element, index) => {
+      if (element > max) {
+        max = element
+        maxIndex = index
+      } 
+    })
+    setMostVoteSelected(maxIndex)
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]}<br></br>
       <label>has {votes[selected]} votes</label><br></br>
       <button onClick={handleVoteClick}>vote</button>
       <button onClick={handleClick}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <label>{props.anecdotes[mostVoteSelected]}</label><br></br>
+      <label>has {votes[mostVoteSelected]} votes</label>
     </div>
   )
 }
