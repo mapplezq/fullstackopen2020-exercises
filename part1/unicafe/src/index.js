@@ -16,12 +16,12 @@ const Statistics = ({good, neutral, bad}) => {
   if ((good+neutral+bad)>0) {
     return (
       <>
-        <DisplayItem text="good" count={good}/>
-        <DisplayItem text="neutral" count={neutral}/>
-        <DisplayItem text="bad" count={bad}/>
-        <DisplayItem text="all" count={good+neutral+bad}/>
-        <DisplayItem text="average" count={ (good+neutral+bad)===0?0:(good*1+neutral*0+bad*(-1))/(good+neutral+bad)}/>
-        <DisplayItem text="positive" count={(good+neutral+bad)===0?0+' %':(good/(good+neutral+bad)*100) +' %'}/>
+        <Statistic text="good" value={good}/>
+        <Statistic text="neutral" value={neutral}/>
+        <Statistic text="bad" value={bad}/>
+        <Statistic text="all" value={good+neutral+bad}/>
+        <Statistic text="average" value={ (good+neutral+bad)===0?0:(good*1+neutral*0+bad*(-1))/(good+neutral+bad)}/>
+        <Statistic text="positive" value={(good+neutral+bad)===0?0+' %':(good/(good+neutral+bad)*100) +' %'}/>
       </>
     )
   } else {
@@ -32,10 +32,10 @@ const Statistics = ({good, neutral, bad}) => {
   
 }
 
-const DisplayItem = ({text, count}) => {
+const Statistic = ({text, value}) => {
   return (
     <div>
-      <label>{text}</label> <label>{count}</label>
+      <label>{text}</label> <label>{value}</label>
     </div>
   )
 }
