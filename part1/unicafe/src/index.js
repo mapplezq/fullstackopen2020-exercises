@@ -48,6 +48,9 @@ const App = () => {
       <DisplayItem text="good" count={good}/>
       <DisplayItem text="neutral" count={neutral}/>
       <DisplayItem text="bad" count={bad}/>
+      <DisplayItem text="all" count={good+neutral+bad}/>
+      <DisplayItem text="average" count={ (good+neutral+bad)===0?0:(good*1+neutral*0+bad*(-1))/(good+neutral+bad)}/>
+      <DisplayItem text="positive" count={(good+neutral+bad)===0?0+' %':(good/(good+neutral+bad)*100) +' %'}/>
     </div>
   )
 
